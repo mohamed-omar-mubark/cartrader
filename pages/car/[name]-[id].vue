@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div v-if="car">
     <!-- car detail hero -->
-    <CarDetailHero />
+    <CarDetailHero :car="car" />
 
     <!-- car attributes -->
-    <CarDetailAttributes />
+    <CarDetailAttributes :features="car.features" />
 
     <!-- car description -->
-    <CarDetailDescription />
+    <CarDetailDescription :description="car.description" />
 
     <!-- car contact -->
     <CarDetailContact />
@@ -17,6 +17,7 @@
 <script setup>
 const route = useRoute();
 const { toTitleCase } = useUtilities();
+const { cars } = useCars();
 
 useHead({
   title: toTitleCase(route.params.name),
@@ -24,5 +25,11 @@ useHead({
 
 definePageMeta({
   layout: "custom",
+});
+
+const car = computed(() => {
+  return cars.find((c) => {
+    return c.id === parseInt(route.params.id);
+  });
 });
 </script>
