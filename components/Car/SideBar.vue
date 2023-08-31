@@ -44,9 +44,6 @@ const updateModal = (key) => {
   modal.value[key] = !modal.value[key];
 };
 
-// "56423154" = 56423154
-// "Egypt" = NaN
-
 const onChangeLocation = () => {
   if (!city.value) return;
   if (!isNaN(parseInt(city.value))) {
