@@ -1,3 +1,9 @@
+<script setup>
+const props = defineProps({
+  listing: Object,
+});
+</script>
+
 <template>
   <div class="shadow rounded overflow-hidden flex justify-between mb-4">
     <div class="flex">
@@ -11,16 +17,9 @@
       <NuxtLink
         class="text-blue-400 mr-4"
         :to="`/profile/listings/view/${listing.id}`"
+        >View</NuxtLink
       >
-        View
-      </NuxtLink>
       <p class="text-red-400 cursor-pointer">Delete</p>
     </div>
   </div>
 </template>
-
-<script setup>
-const props = defineProps({
-  listing: Object,
-});
-</script>

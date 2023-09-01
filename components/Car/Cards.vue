@@ -1,15 +1,3 @@
-<template>
-  <div class="w-full">
-    <CarCard
-      v-for="car in cars"
-      :key="car.id"
-      :car="car"
-      @favor="handleFavorite"
-      :favored="car.id in favorite"
-    />
-  </div>
-</template>
-
 <script setup>
 const { cars } = useCars();
 
@@ -26,3 +14,15 @@ const handleFavorite = (id) => {
   }
 };
 </script>
+
+<template>
+  <div class="w-full">
+    <CarCard
+      v-for="car in cars"
+      :key="car.id"
+      :car="car"
+      @favor="handleFavorite"
+      :favored="car.id in favorite"
+    />
+  </div>
+</template>

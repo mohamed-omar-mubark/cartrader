@@ -1,30 +1,22 @@
-<template>
-  <div v-if="car">
-    <!-- car detail hero -->
-    <CarDetailHero :car="car" />
-
-    <!-- car attributes -->
-    <CarDetailAttributes :features="car.features" />
-
-    <!-- car description -->
-    <CarDetailDescription :description="car.description" />
-
-    <!-- car contact -->
-    <CarDetailContact />
-  </div>
-</template>
-
 <script setup>
 const route = useRoute();
-const { toTitleCase } = useUtilities();
 const { cars } = useCars();
-
+const { toTitleCase } = useUtilities();
 useHead({
   title: toTitleCase(route.params.name),
 });
 
 definePageMeta({
-  layout: "custom",
+  validate({ params }) {
+    const { cars } = useCars();
+    const car = cars.find((c) => c.id === parseInt(params.id));
+    if (!car) {
+      throw createError({
+        statusCode: 404,
+        message: `Car with ID of ${route.params.id} does not exist`,
+      });
+    }
+  },
 });
 
 const car = computed(() => {
@@ -33,10 +25,15 @@ const car = computed(() => {
   });
 });
 
-if (!car.value) {
-  throw createError({
-    statusCode: 404,
-    message: `Car with id of ${route.params.id} does not exist`,
-  });
-}
+definePageMeta({
+  layout: "custom",
+});
 </script>
+<template>
+  <div>
+    <CarDetailHero :car="car" />
+    <CarDetailAttributes :features="car.features" />
+    <CarDetailDescription :description="car.description" />
+    <CarDetailContact />
+  </div>
+</template>
