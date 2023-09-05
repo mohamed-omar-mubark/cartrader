@@ -1,3 +1,13 @@
+import cars from "@/data/cars.json";
+
 export default defineEventHandler((event) => {
-  return "hello world ";
+  const { city } = event.context.params;
+
+  let filteredCars = cars;
+
+  filteredCars = filteredCars.filter(
+    (car) => car.city.toLowerCase() === city.toLowerCase()
+  );
+
+  return filteredCars;
 });
