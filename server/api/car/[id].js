@@ -10,7 +10,7 @@ export default defineEventHandler((event) => {
   if (!car) {
     throw createError({
       statusCode: 404,
-      message: `car with id ${id} does not exist`,
+      statusMessage: `car with id ${id} does not exist`,
     });
   }
 
